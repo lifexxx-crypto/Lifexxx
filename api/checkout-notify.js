@@ -57,7 +57,7 @@ module.exports = async (request, response) => {
 
   const telegramData = {
     plan: product,
-    amount: `${price} USD`,
+    amount: price,
     accountName: accountName,
     email: email
   };
