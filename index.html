@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LIFEXXX game time and Gold packages." />
+    <title>LIFEXXX — Game time &amp; Gold</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .checkout-open{overflow:hidden}.checkout-backdrop{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;background:rgba(8,4,19,.78);backdrop-filter:blur(9px)}.checkout-backdrop[hidden]{display:none}.checkout{position:relative;width:min(590px,100%);max-height:calc(100vh - 40px);overflow:auto;border:1px solid #806022;border-radius:22px;padding:34px;background:radial-gradient(circle at 50% 0,#4a3026,#1c1230 58%);box-shadow:0 25px 70px rgba(0,0,0,.55)}.checkout h2{margin:0;font:700 29px 'Space Grotesk',sans-serif}.checkout-close{position:absolute;right:14px;top:11px;border:0;background:transparent;color:#fff;font-size:30px}.selected-item{margin:8px 0 24px;color:#d6c9e4;font-weight:700}.send-card{display:flex;align-items:baseline;gap:9px;border-radius:13px;padding:16px;background:#130d23;color:#d5c8e5}.send-card strong{font:700 27px 'Space Grotesk';color:#ffd05b}.wallet-row{display:flex;gap:10px;align-items:stretch;margin:12px 0 21px}.wallet-row code{flex:1;overflow-wrap:anywhere;padding:13px;border:1px solid #5d4a76;border-radius:11px;background:#201638;color:#f7f0ff;font-size:13px}.copy-wallet{border:0;border-radius:11px;padding:0 14px;background:#f4b327;color:#352207;font-weight:800}.payment-rules{margin:0;padding:0;list-style:none;display:grid;gap:10px}.payment-rules li{padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.055);color:#d7cce3;line-height:1.45}.payment-rules strong{color:#ffd05b}.delivery-note{margin:21px 0 0;padding-top:18px;border-top:1px solid #56436d;color:#d3c6de;line-height:1.6;font-size:14px}
+      .gold-card b{font:800 clamp(1.45rem,2.3vw,2.05rem)/1 'Space Grotesk',sans-serif;letter-spacing:-.055em;background:linear-gradient(105deg,#ffe980,#ffbf28,#ff75c5,#a57cff,#7dffff,#ffe980);background-size:340% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 7px rgba(255,191,40,.3));animation:gold-hue-flow 7s linear infinite}.gold-card:nth-child(2) b{animation-delay:-1.4s}.gold-card:nth-child(3) b{animation-delay:-2.8s}.gold-card:nth-child(4) b{animation-delay:-4.2s}.gold-card:nth-child(5) b{animation-delay:-5.6s}.gold-card em{display:block;margin-top:5px;letter-spacing:0;color:#dfd2e9;font:700 11px Manrope,Arial,sans-serif}.gold-card{min-height:92px}.gold-card strong{align-self:center}@keyframes gold-hue-flow{to{background-position:340% 0}}@media(max-width:520px){.gold-card b{font-size:1.5rem}}
+      .plan .monthly{font:800 1.15rem/1.15 'Space Grotesk',sans-serif;letter-spacing:-.035em;background:linear-gradient(105deg,#ffe980,#ffbf28,#ff75c5,#a57cff,#7dffff,#ffe980);background-size:340% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 6px rgba(255,191,40,.26));animation:gold-hue-flow 7s linear infinite}.plan:nth-child(2) .monthly{animation-delay:-2.2s}.plan:nth-child(3) .monthly{animation-delay:-4.4s}
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="LIFEXXX home"><span class="coin">●</span> LIFEXXX</a>
+      <nav aria-label="Primary navigation">
+        <a href="#premium">Game time</a><a href="#gold">Gold</a><a href="#faq">Questions &amp; answers</a><a href="https://t.me/mmmokokhaha" target="_blank" rel="noreferrer">Support</a>
+      </nav>
+      <div class="header-actions">
+        <button class="order-pill" type="button" data-toast="Choose a package to get started."><i></i> Order <b>· Ready</b></button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="premium">
+        <p class="eyebrow">GAME TIME</p>
+        <h1>LIFEXXX Game Time</h1>
+        <p class="intro">Choose the package that fits you best and receive Gold with your membership.</p>
+        <div class="plans">
+          <article class="plan premium-sale"><span class="badge">ON SALE</span><div class="crown">♛</div><h2>Premium</h2><p class="price"><small><s>$47</s>&nbsp; $</small>43</p><p class="monthly">20 000 Gold</p><button type="button" data-product="Premium" data-price="43">Choose Premium</button></article>
+          <article class="plan featured elite"><div class="crown">♛</div><h2>Elite</h2><p class="price"><small>$</small>69</p><p class="monthly">1 000 000 Gold</p><button type="button" data-product="Elite" data-price="69">Choose Elite</button></article>
+          <article class="plan"><div class="crown">♛</div><h2>Basic</h2><p class="price"><small>$</small>35</p><p class="monthly">1 000 Gold</p><button type="button" data-product="Basic" data-price="35">Choose Basic</button></article>
+        </div>
+      </section>
+
+      <section class="gold-section" id="gold">
+        <p class="eyebrow">VIRTUAL CURRENCY</p>
+        <h2><span class="gold-dot">●</span> Buy Gold</h2>
+        <div class="gold-grid">
+          <button class="gold-card" data-product="5,000 Gold" data-price="4.99"><span class="plus">+</span><b>5 000</b><strong>$4.99</strong></button>
+          <button class="gold-card" data-product="21,000 Gold" data-price="19.99"><span class="plus">+</span><b>20 000 <em>+ 1 000 Bonus</em></b><strong>$19.99</strong></button>
+          <button class="gold-card popular" data-product="55,000 Gold" data-price="49.99"><span class="badge">POPULAR</span><span class="plus">+</span><b>50 000 <em>+ 5 000 Bonus</em></b><strong>$49.99</strong></button>
+          <button class="gold-card" data-product="115,000 Gold" data-price="99.99"><span class="plus">+</span><b>100 000 <em>+ 15 000 Bonus</em></b><strong>$99.99</strong></button>
+          <button class="gold-card" data-product="240,000 Gold" data-price="199.99"><span class="plus">+</span><b>200 000 <em>+ 40 000 Bonus</em></b><strong>$199.99</strong></button>
+        </div>
+      </section>
+
+      <section class="faq" id="faq"><p class="eyebrow">HELP CENTER</p><h2>Questions &amp; answers</h2><div id="faq-list"></div></section>
+    </main>
+
+    <footer id="support"><a class="brand" href="#top"><span class="coin">●</span> LIFEXXX</a><div><a href="#faq">Questions &amp; answers</a><a href="https://t.me/mmmokokhaha" target="_blank" rel="noreferrer">Support</a></div><p>© 2026 LifeXXX · By mmmokokhaha</p></footer>
+    <div class="checkout-backdrop" id="checkout" hidden>
+      <section class="checkout" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+        <button class="checkout-close" type="button" aria-label="Close checkout">×</button>
+        <p class="eyebrow">CHECKOUT</p><h2 id="checkout-title">Complete your order</h2><p class="selected-item" id="selected-item"></p>
+        <div class="send-card"><span>Send</span><strong id="selected-price"></strong><span>to:</span></div>
+        <div class="wallet-row"><code id="wallet-address">DkjcPXd1SbmQfLhfaBviCQusd9LcMjj8WiAHCLqHYBt8</code><button class="copy-wallet" type="button">Copy</button></div>
+        <ol class="payment-rules"><li>Send only <strong>SOLANA</strong> to this wallet.</li><li>Do not send <strong>other crypto</strong> to this address.</li><li>A personal wallet app needs a little SOL for the fee.</li></ol>
+        <p class="delivery-note">Once we receive the payment, your code will be delivered here or through email. This might take some time, so please be patient.</p>
+      </section>
+    </div>
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
