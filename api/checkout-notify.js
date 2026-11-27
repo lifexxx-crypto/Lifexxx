@@ -78,7 +78,7 @@ module.exports = async (request, response) => {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
-      text: JSON.stringify(telegramData, null, 2)
+      text: JSON.stringify(telegramData)
     })
   });
 
