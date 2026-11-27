@@ -1,4 +1,6 @@
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^[+0-9() .-]{7,32}$/;
+const clean = (value, limit) => String(value || '').trim().replace(/\s+/g, ' ').slice(0, limit);
 
 module.exports = async (request, response) => {
   response.setHeader('Cache-Control', 'no-store');
@@ -16,11 +18,15 @@ module.exports = async (request, response) => {
   }
 
   const body = typeof request.body === 'string' ? JSON.parse(request.body || '{}') : request.body || {};
-  const email = String(body.email || '').trim().toLowerCase();
-  const product = String(body.product || '').trim().slice(0, 80);
-  const price = String(body.price || '').trim().slice(0, 24);
+  const email = clean(body.email, 254).toLowerCase();
+  const accountName = clean(body.accountName, 64);
+  const firstName = clean(body.firstName, 64);
+  const lastName = clean(body.lastName, 64);
+  const phone = clean(body.phone, 32);
+  const product = clean(body.product, 80);
+  const price = clean(body.price, 24);
 
-  if (!EMAIL_PATTERN.test(email) || !product || !price) {
+  if (!EMAIL_PATTERN.test(email) || !accountName || !firstName || !lastName || !PHONE_PATTERN.test(phone) || !product || !price) {
     response.status(400).json({ error: 'Invalid checkout details' });
     return;
   }
@@ -37,7 +43,7 @@ module.exports = async (request, response) => {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
-      text: `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nEmail: ${email}`
+      text: `New LIFEXXX checkout\\nPlan: ${product}\\nAmount: $${price} USD\\nAccount name: ${accountName}\\nName: ${firstName} ${lastName}\\nPhone: ${phone}\\nEmail: ${email}`
     })
   });
 
